@@ -7,8 +7,11 @@ app=Flask("Emotion Detector")
 def emotionDetector():
     text_to_analyze=request.args.get("textToAnalyze")
     emotions=emotion_detector(text_to_analyze)
+    dominant_emotion=emotions['dominant_emotion']
+    if dominant_emotion is None:
+        return "<b>Invalid text! Please try again!</b>"
     return f"For the given statement, the system response is {emotions}.\
-     The dominant emotion is <b>{emotions['dominant_emotion']}</b>." 
+     The dominant emotion is <b>{dominant_emotion}</b>." 
 
 @app.route("/")
 def render_index_page():
